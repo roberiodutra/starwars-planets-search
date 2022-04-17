@@ -1,10 +1,21 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import PlanetsContext from '../contexts/PlanetsContext';
+import starWarsAPI from '../services/starWarsAPI';
 
 function Table() {
-  const { data } = useContext(PlanetsContext);
+  const { data, setData } = useContext(PlanetsContext);
+
+  useEffect(() => {
+    async function dataAPI() {
+      setData(await starWarsAPI());
+    }
+    dataAPI();
+  }, [setData]);
+
+  console.log(data)
+
   return (
-    <table>{data}</table>
+    <table>test</table>
   );
 }
 
