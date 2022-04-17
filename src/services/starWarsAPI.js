@@ -4,7 +4,7 @@ const starWarsAPI = async () => {
   try {
     const response = await fetch(URL);
     const data = await response.json();
-    return data;
+    return data.results;
   } catch (error) {
     console.error(error);
   }
