@@ -3,7 +3,7 @@ import PlanetsContext from '../contexts/PlanetsContext';
 import starWarsAPI from '../services/starWarsAPI';
 
 function Table() {
-  const { data, setData, filter, bool } = useContext(PlanetsContext);
+  const { data, setData, filter, dataFiltered } = useContext(PlanetsContext);
 
   useEffect(() => {
     async function dataAPI() {
@@ -23,29 +23,6 @@ function Table() {
     return split.join(' ');
   }
 
-  let dataFiltered = [];
-  const { column, comparison, value } = filter.filterByNumericValues[0];
-
-  if (data) {
-    dataFiltered = data;
-  }
-
-  if (data && bool) {
-    switch (comparison) {
-    case 'maior que':
-      dataFiltered = data.filter((item) => Number(item[column]) > Number(value));
-      break;
-    case 'menor que':
-      dataFiltered = data.filter((item) => Number(item[column]) < Number(value));
-      break;
-    case 'igual a':
-      dataFiltered = data.filter((item) => Number(item[column]) === Number(value));
-      break;
-    default:
-      console.error('xablau');
-    }
-  }
-
   return (
     <table>
       <thead>
@@ -58,7 +35,7 @@ function Table() {
         </tr>
       </thead>
       <tbody>
-        {data && dataFiltered
+        {dataFiltered !== undefined && dataFiltered
           .filter(({ name }) => name.includes(filter.filterByName.name))
           .map((planet) => (
             <tr key={ planet.name }>

@@ -2,7 +2,15 @@ import React, { useContext } from 'react';
 import PlanetsContext from '../contexts/PlanetsContext';
 
 function FilterNumber() {
-  const { filter, setFilter, setBool } = useContext(PlanetsContext);
+  const { data, filter, setFilter, setDataFiltered } = useContext(PlanetsContext);
+  const comparisons = ['maior que', 'menor que', 'igual a'];
+  const { column, comparison, value } = filter.filterByNumericValues[0];
+
+  let filterCover = {
+    column: 'population',
+    comparison: 'maior que',
+    value: 0,
+  };
 
   const columns = [
     'population',
@@ -12,15 +20,31 @@ function FilterNumber() {
     'surface_water',
   ];
 
-  const comparisons = ['maior que', 'menor que', 'igual a'];
+  function onHandleChange({ target }) {
+    filterCover = { ...filterCover, [target.name]: target.value };
+  }
 
-  function onHandleChange({ target: { value, name } }) {
+  function onHandleClick() {
     setFilter({ ...filter,
-      filterByNumericValues: [{
-        ...filter.filterByNumericValues[0],
-        [name]: value,
+      filterByNumericValues: [...filter.filterByNumericValues, { ...filterCover,
       }],
     });
+
+    if (data) {
+      switch (comparison) {
+      case 'maior que':
+        setDataFiltered(data.filter((item) => Number(item[column]) > Number(value)));
+        break;
+      case 'menor que':
+        setDataFiltered(data.filter((item) => Number(item[column]) < Number(value)));
+        break;
+      case 'igual a':
+        setDataFiltered(data.filter((item) => Number(item[column]) === Number(value)));
+        break;
+      default:
+        console.error('xablau');
+      }
+    }
   }
 
   return (
@@ -30,8 +54,8 @@ function FilterNumber() {
         data-testid="column-filter"
         onChange={ onHandleChange }
       >
-        {columns.map((column) => (
-          <option key={ column } value={ column }>{ column }</option>
+        {columns.map((item) => (
+          <option key={ item } value={ item }>{ item }</option>
         ))}
       </select>
 
@@ -40,23 +64,23 @@ function FilterNumber() {
         data-testid="comparison-filter"
         onChange={ onHandleChange }
       >
-        {comparisons.map((comparison) => (
-          <option key={ comparison } value={ comparison }>{ comparison }</option>
+        {comparisons.map((item) => (
+          <option key={ item } value={ item }>{ item }</option>
         ))}
       </select>
 
       <input
         name="value"
         type="number"
+        defaultValue={ 0 }
         data-testid="value-filter"
-        value="0"
         onChange={ onHandleChange }
       />
 
       <button
         type="button"
         data-testid="button-filter"
-        onClick={ () => setBool(true) }
+        onClick={ onHandleClick }
       >
         Filter
       </button>
