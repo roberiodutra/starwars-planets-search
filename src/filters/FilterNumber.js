@@ -1,16 +1,15 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import PlanetsContext from '../contexts/PlanetsContext';
 
 function FilterNumber() {
   const { data, filter, setFilter, setDataFiltered } = useContext(PlanetsContext);
   const comparisons = ['maior que', 'menor que', 'igual a'];
-  const { column, comparison, value } = filter.filterByNumericValues[0];
-
-  let filterCover = {
+  const [filterCover, setFilterCover] = useState({
     column: 'population',
     comparison: 'maior que',
     value: 0,
-  };
+  });
+  const { comparison, column, value } = filterCover;
 
   const columns = [
     'population',
@@ -21,30 +20,30 @@ function FilterNumber() {
   ];
 
   function onHandleChange({ target }) {
-    filterCover = { ...filterCover, [target.name]: target.value };
+    setFilterCover({ ...filterCover, [target.name]: target.value });
   }
 
-  function onHandleClick() {
+  function onHandleClick(e) {
+    e.preventDefault();
+
+    switch (comparison) {
+    case 'maior que':
+      setDataFiltered(data.filter((item) => Number(item[column]) > Number(value)));
+      break;
+    case 'menor que':
+      setDataFiltered(data.filter((item) => Number(item[column]) < Number(value)));
+      break;
+    case 'igual a':
+      setDataFiltered(data.filter((item) => Number(item[column]) === Number(value)));
+      break;
+    default:
+      console.error('xablau');
+    }
+
     setFilter({ ...filter,
       filterByNumericValues: [...filter.filterByNumericValues, { ...filterCover,
       }],
     });
-
-    if (data) {
-      switch (comparison) {
-      case 'maior que':
-        setDataFiltered(data.filter((item) => Number(item[column]) > Number(value)));
-        break;
-      case 'menor que':
-        setDataFiltered(data.filter((item) => Number(item[column]) < Number(value)));
-        break;
-      case 'igual a':
-        setDataFiltered(data.filter((item) => Number(item[column]) === Number(value)));
-        break;
-      default:
-        console.error('xablau');
-      }
-    }
   }
 
   return (
