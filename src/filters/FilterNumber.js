@@ -21,6 +21,19 @@ function FilterNumber() {
     setFilterCover({ ...filterCover, [target.name]: target.value });
   }
 
+  function checkColumn() {
+    const isColumn = filter.filterByNumericValues.every(
+      (elem) => elem.column !== filterCover.column,
+    );
+
+    if (isColumn) {
+      setFilter({ ...filter,
+        filterByNumericValues: [...filter.filterByNumericValues, { ...filterCover,
+        }],
+      });
+    }
+  }
+
   function onHandleClick(e) {
     e.preventDefault();
     const { comparison, column, value } = filterCover;
@@ -45,10 +58,7 @@ function FilterNumber() {
       console.error('xablau');
     }
 
-    setFilter({ ...filter,
-      filterByNumericValues: [...filter.filterByNumericValues, { ...filterCover,
-      }],
-    });
+    checkColumn();
   }
 
   return (

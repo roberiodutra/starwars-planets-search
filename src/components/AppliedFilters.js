@@ -5,9 +5,10 @@ function AppliedFilters() {
   const { filter } = useContext(PlanetsContext);
   return (
     <section>
-      {filter.filterByNumericValues.slice(1).map(({ comparison, column, value }, i) => (
-        <p key={ i }>{`${column} ${comparison} ${value}`}</p>
-      ))}
+      {filter.filterByNumericValues.slice(1)
+        .map(({ comparison, column, value }, i) => (
+          <p key={ i }>{`${column} ${comparison} ${value}`}</p>
+        ))}
     </section>
   );
 }
