@@ -4,12 +4,6 @@ import PlanetsContext from '../contexts/PlanetsContext';
 function FilterNumber() {
   const { filter, setFilter } = useContext(PlanetsContext);
 
-  const filterByNumericValues = {
-    column: 'population',
-    comparison: 'maior que',
-    value: '',
-  };
-
   const columns = [
     'population',
     'orbital_period',
@@ -18,22 +12,38 @@ function FilterNumber() {
     'surface_water',
   ];
 
-  function onHandleChange({ target }) {
-    filterByNumericValues.column = target.value;
+  const comparisons = ['maior que', 'menor que', 'igual a'];
+
+  function onHandleChange({ target: { value, name } }) {
     setFilter({ ...filter,
-      filterByNumericValues,
+      filterByNumericValues: [{
+        ...filter.filterByNumericValues[0],
+        [name]: value,
+      }],
     });
   }
 
   return (
-    <select
-      data-testid="column-filter"
-      onChange={ onHandleChange }
-    >
-      {columns.map((item) => (
-        <option key={ item } value={ item }>{ item }</option>
-      ))}
-    </select>
+    <section>
+      <select
+        name="column"
+        data-testid="column-filter"
+        onChange={ onHandleChange }
+      >
+        {columns.map((column) => (
+          <option key={ column } value={ column }>{ column }</option>
+        ))}
+      </select>
+      <select
+        name="comparison"
+        data-testid="comparison-filter"
+        onChange={ onHandleChange }
+      >
+        {comparisons.map((comparison) => (
+          <option key={ comparison } value={ comparison }>{ comparison }</option>
+        ))}
+      </select>
+    </section>
   );
 }
 
