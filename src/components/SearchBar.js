@@ -1,9 +1,10 @@
 import React from 'react';
+import FilterName from '../filters/FilterName';
 
 function SearchBar() {
   return (
     <section>
-      <h2>Planet Search</h2>
+      <FilterName />
     </section>
   );
 }
