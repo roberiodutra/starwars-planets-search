@@ -11,6 +11,7 @@ function FilterNumber() {
   });
   const { comparison, column, value } = filterCover;
 
+  console.log(typeof value)
   const columns = [
     'population',
     'orbital_period',
@@ -28,13 +29,13 @@ function FilterNumber() {
 
     switch (comparison) {
     case 'maior que':
-      setDataFiltered(data.filter((item) => Number(item[column]) > Number(value)));
+      setDataFiltered(data.filter((item) => Number(item[column]) > value));
       break;
     case 'menor que':
-      setDataFiltered(data.filter((item) => Number(item[column]) < Number(value)));
+      setDataFiltered(data.filter((item) => Number(item[column]) < value));
       break;
     case 'igual a':
-      setDataFiltered(data.filter((item) => Number(item[column]) === Number(value)));
+      setDataFiltered(data.filter((item) => Number(item[column]) === value));
       break;
     default:
       console.error('xablau');
