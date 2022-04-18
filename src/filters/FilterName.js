@@ -15,6 +15,7 @@ function FilterName() {
       type="text"
       data-testid="name-filter"
       value={ filterName.filterByName.name }
+      placeholder="Planet Search"
       onChange={ onHandleChange }
     />
   );
