@@ -4,7 +4,6 @@ import PlanetsContext from './PlanetsContext';
 
 function Provider({ children }) {
   const [data, setData] = useState();
-  const [bool, setBool] = useState(false);
   const [dataFiltered, setDataFiltered] = useState();
   const [filter, setFilter] = useState({
     filterByName: { name: '' },
@@ -28,8 +27,6 @@ function Provider({ children }) {
     setData,
     filter,
     setFilter,
-    bool,
-    setBool,
     dataFiltered,
     setDataFiltered,
   };
