@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import PlanetsContext from '../contexts/PlanetsContext';
 
 function AppliedFilters() {
+  const { filter } = useContext(PlanetsContext);
   return (
     <section>
-      <p>Applied Filters</p>
+      {filter.filterByNumericValues.slice(1).map(({ comparison, column, value }, i) => (
+        <p key={ i }>{`${column} ${comparison} ${value}`}</p>
+      ))}
     </section>
   );
 }
