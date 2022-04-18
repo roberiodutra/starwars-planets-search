@@ -5,7 +5,7 @@ import PlanetsContext from './PlanetsContext';
 function Provider({ children }) {
   const [data, setData] = useState();
   const [filterName, setFilterName] = useState({
-    filterByName: {},
+    filterByName: { name: '' },
   });
 
   const context = { data, setData, filterName, setFilterName };
