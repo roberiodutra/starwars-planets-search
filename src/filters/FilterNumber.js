@@ -34,6 +34,7 @@ function FilterNumber() {
           <option key={ column } value={ column }>{ column }</option>
         ))}
       </select>
+
       <select
         name="comparison"
         data-testid="comparison-filter"
@@ -43,12 +44,14 @@ function FilterNumber() {
           <option key={ comparison } value={ comparison }>{ comparison }</option>
         ))}
       </select>
+
       <input
         name="value"
         type="number"
         data-testid="value-filter"
         onChange={ onHandleChange }
       />
+
       <button
         type="button"
         data-testid="button-filter"
