@@ -3,7 +3,7 @@ import PlanetsContext from '../contexts/PlanetsContext';
 import starWarsAPI from '../services/starWarsAPI';
 
 function Table() {
-  const { data, setData, filterName } = useContext(PlanetsContext);
+  const { data, setData, filter } = useContext(PlanetsContext);
 
   useEffect(() => {
     async function dataAPI() {
@@ -35,7 +35,7 @@ function Table() {
         </tr>
       </thead>
       <tbody>
-        {data && data.filter(({ name }) => name.includes(filterName.filterByName.name))
+        {data && data.filter(({ name }) => name.includes(filter.filterByName.name))
           .map((planet) => (
             <tr key={ planet.name }>
               <td>{planet.name}</td>

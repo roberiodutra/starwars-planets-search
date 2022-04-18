@@ -2,10 +2,10 @@ import React, { useContext } from 'react';
 import PlanetsContext from '../contexts/PlanetsContext';
 
 function FilterName() {
-  const { filterName, setFilterName } = useContext(PlanetsContext);
+  const { filter, setFilter } = useContext(PlanetsContext);
 
   function onHandleChange({ target }) {
-    setFilterName({ ...filterName,
+    setFilter({ ...filter,
       filterByName: { name: target.value },
     });
   }
@@ -14,7 +14,7 @@ function FilterName() {
     <input
       type="text"
       data-testid="name-filter"
-      value={ filterName.filterByName.name }
+      value={ filter.filterByName.name }
       placeholder="Planet Search"
       onChange={ onHandleChange }
     />
