@@ -30,7 +30,7 @@ function Table() {
     dataFiltered = data;
   }
 
-  if (value && data) {
+  if (data && bool) {
     switch (comparison) {
     case 'maior que':
       dataFiltered = data.filter((item) => Number(item[column]) > Number(value));

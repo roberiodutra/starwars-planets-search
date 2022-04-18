@@ -11,7 +11,7 @@ function Provider({ children }) {
       {
         column: 'population',
         comparison: 'maior que',
-        value: '',
+        value: 0,
       },
     ],
   });

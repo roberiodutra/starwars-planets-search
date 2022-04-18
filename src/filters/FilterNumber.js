@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import PlanetsContext from '../contexts/PlanetsContext';
 
 function FilterNumber() {
-  const { filter, setFilter } = useContext(PlanetsContext);
+  const { filter, setFilter, setBool } = useContext(PlanetsContext);
 
   const columns = [
     'population',
@@ -49,13 +49,14 @@ function FilterNumber() {
         name="value"
         type="number"
         data-testid="value-filter"
+        value="0"
         onChange={ onHandleChange }
       />
 
       <button
         type="button"
         data-testid="button-filter"
-        onClick="{}"
+        onClick={ () => setBool(true) }
       >
         Filter
       </button>
