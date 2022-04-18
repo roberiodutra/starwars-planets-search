@@ -43,6 +43,12 @@ function FilterNumber() {
           <option key={ comparison } value={ comparison }>{ comparison }</option>
         ))}
       </select>
+      <input
+        name="value"
+        type="number"
+        data-testid="value-filter"
+        onChange={ onHandleChange }
+      />
     </section>
   );
 }
