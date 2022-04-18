@@ -49,6 +49,13 @@ function FilterNumber() {
         data-testid="value-filter"
         onChange={ onHandleChange }
       />
+      <button
+        type="button"
+        data-testid="button-filter"
+        onClick="{}"
+      >
+        Filter
+      </button>
     </section>
   );
 }
