@@ -2,16 +2,13 @@ import React, { useContext, useState } from 'react';
 import PlanetsContext from '../contexts/PlanetsContext';
 
 function FilterNumber() {
-  const { data, filter, setFilter, setDataFiltered } = useContext(PlanetsContext);
+  const { filter, setFilter, setDataFiltered, dataFiltered } = useContext(PlanetsContext);
   const comparisons = ['maior que', 'menor que', 'igual a'];
   const [filterCover, setFilterCover] = useState({
     column: 'population',
     comparison: 'maior que',
     value: 0,
   });
-  const { comparison, column, value } = filterCover;
-
-  console.log(typeof value)
   const columns = [
     'population',
     'orbital_period',
@@ -26,16 +23,23 @@ function FilterNumber() {
 
   function onHandleClick(e) {
     e.preventDefault();
+    const { comparison, column, value } = filterCover;
 
     switch (comparison) {
     case 'maior que':
-      setDataFiltered(data.filter((item) => Number(item[column]) > value));
+      setDataFiltered(dataFiltered.filter(
+        (item) => Number(item[column]) > Number(value),
+      ));
       break;
     case 'menor que':
-      setDataFiltered(data.filter((item) => Number(item[column]) < value));
+      setDataFiltered(dataFiltered.filter(
+        (item) => Number(item[column]) < Number(value),
+      ));
       break;
     case 'igual a':
-      setDataFiltered(data.filter((item) => Number(item[column]) === value));
+      setDataFiltered(dataFiltered.filter(
+        (item) => Number(item[column]) === Number(value),
+      ));
       break;
     default:
       console.error('xablau');
