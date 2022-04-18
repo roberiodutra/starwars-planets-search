@@ -6,6 +6,13 @@ function Provider({ children }) {
   const [data, setData] = useState();
   const [filter, setFilter] = useState({
     filterByName: { name: '' },
+    filterByNumericValues: [
+      {
+        column: 'population',
+        comparison: 'maior que',
+        value: '',
+      },
+    ],
   });
 
   const context = { data, setData, filter, setFilter };
