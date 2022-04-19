@@ -3,13 +3,16 @@ import PlanetsContext from '../contexts/PlanetsContext';
 
 function AppliedFilters() {
   const {
+    data,
     filter,
     setFilter,
     filteredColumns,
     setFilteredColumns,
+    setDataFiltered,
+    dataFiltered,
   } = useContext(PlanetsContext);
 
-  function onHandleClick(column) {
+  function onHandleClick({ column }) {
     const returnedColumn = [...filteredColumns, column];
     setFilteredColumns(returnedColumn);
 
@@ -19,6 +22,10 @@ function AppliedFilters() {
     setFilter({ ...filter,
       filterByNumericValues: [...returnedFilter],
     });
+
+    if (filter.filterByNumericValues.length > 0) {
+      setDataFiltered(data);
+    }
   }
 
   return (
@@ -33,7 +40,7 @@ function AppliedFilters() {
             <button
               key={ `button-${i}` }
               type="button"
-              onClick={ () => onHandleClick(column) }
+              onClick={ () => onHandleClick({ comparison, column, value }) }
             >
               X
             </button>
