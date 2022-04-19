@@ -9,13 +9,13 @@ function FilterNumber() {
     comparison: 'maior que',
     value: 0,
   });
-  const columns = [
+  const [filteredColumns, setFilteredColumns] = useState([
     'population',
     'orbital_period',
     'diameter',
     'rotation_period',
     'surface_water',
-  ];
+  ]);
 
   function onHandleChange({ target }) {
     setFilterCover({ ...filterCover, [target.name]: target.value });
@@ -58,6 +58,10 @@ function FilterNumber() {
       console.error('xablau');
     }
 
+    const columns = [...filteredColumns];
+    columns.splice(filteredColumns.indexOf(filterCover.column), 1);
+    setFilteredColumns(columns);
+
     checkColumn();
   }
 
@@ -68,7 +72,7 @@ function FilterNumber() {
         data-testid="column-filter"
         onChange={ onHandleChange }
       >
-        {columns.map((item) => (
+        {filteredColumns.map((item) => (
           <option key={ item } value={ item }>{ item }</option>
         ))}
       </select>
