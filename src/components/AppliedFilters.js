@@ -3,14 +3,37 @@ import PlanetsContext from '../contexts/PlanetsContext';
 
 function AppliedFilters() {
   const {
-    data,
     filter,
     setFilter,
-    filteredColumns,
-    setFilteredColumns,
     setDataFiltered,
     dataFiltered,
+    filteredColumns,
+    setFilteredColumns,
   } = useContext(PlanetsContext);
+
+  function removeFilter(comparison, column, value) {
+    filter.filterByNumericValues.forEach((elem) => {
+      switch (comparison) {
+      case 'maior que':
+        setDataFiltered(dataFiltered.filter(
+          (item) => Number(item[column]) < Number(value),
+        ));
+        break;
+      case 'menor que':
+        setDataFiltered(dataFiltered.filter(
+          (item) => Number(item[column]) > Number(value),
+        ));
+        break;
+      case 'igual a':
+        setDataFiltered(dataFiltered.filter(
+          (item) => Number(item[column]) !== Number(value),
+        ));
+        break;
+      default:
+        console.error('xablau');
+      }
+    });
+  }
 
   function onHandleClick(comparison, column, value) {
     const returnedColumn = [...filteredColumns, column];
@@ -22,29 +45,7 @@ function AppliedFilters() {
     setFilter({ ...filter,
       filterByNumericValues: [...returnedFilter],
     });
-
-    switch (true) {
-    case filter.filterByNumericValues.length === 1:
-      setDataFiltered(data);
-      break;
-    case comparison === 'maior que':
-      setDataFiltered(dataFiltered.concat(data.filter(
-        (item) => Number(item[column]) < Number(value),
-      )));
-      break;
-    case comparison === 'menor que':
-      setDataFiltered(dataFiltered.concat(data.filter(
-        (item) => Number(item[column]) > Number(value),
-      )));
-      break;
-    case comparison === 'igual a':
-      setDataFiltered(dataFiltered.concat(data.filter(
-        (item) => Number(item[column]) === Number(value),
-      )));
-      break;
-    default:
-      console.error('xablau');
-    }
+    removeFilter(comparison, column, value);
   }
 
   return (

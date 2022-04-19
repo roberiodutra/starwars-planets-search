@@ -3,10 +3,11 @@ import PlanetsContext from '../contexts/PlanetsContext';
 
 function FilterNumber() {
   const {
+    data,
+    dataFiltered,
+    setDataFiltered,
     filter,
     setFilter,
-    setDataFiltered,
-    dataFiltered,
     filteredColumns,
     setFilteredColumns,
   } = useContext(PlanetsContext);
@@ -23,30 +24,15 @@ function FilterNumber() {
   }
 
   useEffect(() => {
-    setFilterCover({
-      column: filteredColumns[0],
-      comparison: 'maior que',
-      value: 0,
-    });
+    if (filteredColumns[0]) {
+      setFilterCover((prev) => ({ ...prev,
+        column: filteredColumns[0],
+      }));
+    }
   }, [filteredColumns]);
 
-  function checkColumn() {
-    const isColumn = filter.filterByNumericValues.every(
-      (elem) => elem.column !== filterCover.column,
-    );
-
-    if (isColumn) {
-      setFilter({ ...filter,
-        filterByNumericValues: [...filter.filterByNumericValues, { ...filterCover,
-        }],
-      });
-    }
-  }
-
-  function onHandleClick(e) {
-    e.preventDefault();
-    const { comparison, column, value } = filterCover;
-
+  function addFilter({ column, comparison, value }) {
+    setDataFiltered(data);
     switch (comparison) {
     case 'maior que':
       setDataFiltered(dataFiltered.filter(
@@ -66,12 +52,25 @@ function FilterNumber() {
     default:
       console.error('xablau');
     }
+  }
 
+  function onHandleClick(e) {
+    e.preventDefault();
     const columns = [...filteredColumns];
     columns.splice(filteredColumns.indexOf(filterCover.column), 1);
     setFilteredColumns(columns);
 
-    checkColumn();
+    const isColumn = filter.filterByNumericValues.every(
+      (elem) => elem.column !== filterCover.column,
+    );
+
+    if (isColumn) {
+      setFilter({ ...filter,
+        filterByNumericValues: [...filter.filterByNumericValues, { ...filterCover,
+        }],
+      });
+    }
+    addFilter(filterCover);
   }
 
   return (
@@ -81,8 +80,8 @@ function FilterNumber() {
         data-testid="column-filter"
         onChange={ onHandleChange }
       >
-        {filteredColumns.map((item) => (
-          <option key={ item } value={ item }>{ item }</option>
+        {filteredColumns.map((item, i) => (
+          <option key={ i } value={ item }>{ item }</option>
         ))}
       </select>
 
