@@ -2,20 +2,21 @@ import React, { useContext, useState } from 'react';
 import PlanetsContext from '../contexts/PlanetsContext';
 
 function FilterNumber() {
-  const { filter, setFilter, setDataFiltered, dataFiltered } = useContext(PlanetsContext);
+  const {
+    filter,
+    setFilter,
+    setDataFiltered,
+    dataFiltered,
+    filteredColumns,
+    setFilteredColumns,
+  } = useContext(PlanetsContext);
+
   const comparisons = ['maior que', 'menor que', 'igual a'];
   const [filterCover, setFilterCover] = useState({
     column: 'population',
     comparison: 'maior que',
     value: 0,
   });
-  const [filteredColumns, setFilteredColumns] = useState([
-    'population',
-    'orbital_period',
-    'diameter',
-    'rotation_period',
-    'surface_water',
-  ]);
 
   function onHandleChange({ target }) {
     setFilterCover({ ...filterCover, [target.name]: target.value });

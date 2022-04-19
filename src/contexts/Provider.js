@@ -10,6 +10,14 @@ function Provider({ children }) {
     filterByNumericValues: [],
   });
 
+  const [filteredColumns, setFilteredColumns] = useState([
+    'population',
+    'orbital_period',
+    'diameter',
+    'rotation_period',
+    'surface_water',
+  ]);
+
   useEffect(() => {
     if (data) {
       setDataFiltered(data);
@@ -23,6 +31,8 @@ function Provider({ children }) {
     setFilter,
     dataFiltered,
     setDataFiltered,
+    filteredColumns,
+    setFilteredColumns,
   };
 
   return (
