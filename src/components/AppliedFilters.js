@@ -5,9 +5,20 @@ function AppliedFilters() {
   const { filter } = useContext(PlanetsContext);
   return (
     <section>
-      {filter.filterByNumericValues.slice(1)
+      {filter.filterByNumericValues
         .map(({ comparison, column, value }, i) => (
-          <p key={ i }>{`${column} ${comparison} ${value}`}</p>
+          <div
+            key={ i }
+            data-testid="filter"
+          >
+            {`${column} ${comparison} ${value} `}
+            <button
+              key={ `button-${i}` }
+              type="button"
+            >
+              X
+            </button>
+          </div>
         ))}
     </section>
   );
