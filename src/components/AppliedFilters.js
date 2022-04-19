@@ -2,11 +2,23 @@ import React, { useContext } from 'react';
 import PlanetsContext from '../contexts/PlanetsContext';
 
 function AppliedFilters() {
-  const { filter, filteredColumns, setFilteredColumns } = useContext(PlanetsContext);
+  const {
+    filter,
+    setFilter,
+    filteredColumns,
+    setFilteredColumns,
+  } = useContext(PlanetsContext);
 
   function onHandleClick(column) {
     const returnedColumn = [...filteredColumns, column];
     setFilteredColumns(returnedColumn);
+
+    const returnedFilter = filter.filterByNumericValues
+      .filter((item) => item.column !== column);
+
+    setFilter({ ...filter,
+      filterByNumericValues: [...returnedFilter],
+    });
   }
 
   return (
