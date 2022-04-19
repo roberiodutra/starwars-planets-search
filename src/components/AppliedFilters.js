@@ -12,7 +12,7 @@ function AppliedFilters() {
     dataFiltered,
   } = useContext(PlanetsContext);
 
-  function onHandleClick({ column }) {
+  function onHandleClick(comparison, column, value) {
     const returnedColumn = [...filteredColumns, column];
     setFilteredColumns(returnedColumn);
 
@@ -23,8 +23,27 @@ function AppliedFilters() {
       filterByNumericValues: [...returnedFilter],
     });
 
-    if (filter.filterByNumericValues.length > 0) {
+    switch (true) {
+    case filter.filterByNumericValues.length === 1:
       setDataFiltered(data);
+      break;
+    case comparison === 'maior que':
+      setDataFiltered(dataFiltered.concat(data.filter(
+        (item) => Number(item[column]) < Number(value),
+      )));
+      break;
+    case comparison === 'menor que':
+      setDataFiltered(dataFiltered.concat(data.filter(
+        (item) => Number(item[column]) > Number(value),
+      )));
+      break;
+    case comparison === 'igual a':
+      setDataFiltered(dataFiltered.concat(data.filter(
+        (item) => Number(item[column]) === Number(value),
+      )));
+      break;
+    default:
+      console.error('xablau');
     }
   }
 
@@ -40,7 +59,7 @@ function AppliedFilters() {
             <button
               key={ `button-${i}` }
               type="button"
-              onClick={ () => onHandleClick({ comparison, column, value }) }
+              onClick={ () => onHandleClick(comparison, column, value) }
             >
               X
             </button>

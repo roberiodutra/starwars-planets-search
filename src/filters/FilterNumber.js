@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import PlanetsContext from '../contexts/PlanetsContext';
 
 function FilterNumber() {
@@ -21,6 +21,14 @@ function FilterNumber() {
   function onHandleChange({ target }) {
     setFilterCover({ ...filterCover, [target.name]: target.value });
   }
+
+  useEffect(() => {
+    setFilterCover({
+      column: filteredColumns[0],
+      comparison: 'maior que',
+      value: 0,
+    });
+  }, [filteredColumns]);
 
   function checkColumn() {
     const isColumn = filter.filterByNumericValues.every(
@@ -91,7 +99,7 @@ function FilterNumber() {
       <input
         name="value"
         type="number"
-        defaultValue={ 0 }
+        value={ filterCover.value }
         data-testid="value-filter"
         onChange={ onHandleChange }
       />
