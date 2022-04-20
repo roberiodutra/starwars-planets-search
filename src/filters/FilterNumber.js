@@ -4,7 +4,6 @@ import PlanetsContext from '../contexts/PlanetsContext';
 function FilterNumber() {
   const {
     data,
-    dataFiltered,
     setDataFiltered,
     filter,
     setFilter,
@@ -31,28 +30,30 @@ function FilterNumber() {
     }
   }, [filteredColumns]);
 
-  function addFilter({ column, comparison, value }) {
-    setDataFiltered(data);
-    switch (comparison) {
-    case 'maior que':
-      setDataFiltered(dataFiltered.filter(
-        (item) => Number(item[column]) > Number(value),
-      ));
-      break;
-    case 'menor que':
-      setDataFiltered(dataFiltered.filter(
-        (item) => Number(item[column]) < Number(value),
-      ));
-      break;
-    case 'igual a':
-      setDataFiltered(dataFiltered.filter(
-        (item) => Number(item[column]) === Number(value),
-      ));
-      break;
-    default:
-      console.error('xablau');
-    }
-  }
+  useEffect(() => {
+    let dataCover = data;
+
+    filter.filterByNumericValues.forEach((filt) => {
+      const { column, comparison, value } = filt;
+      switch (comparison) {
+      case 'maior que':
+        dataCover = dataCover
+          .filter((star) => +star[column] > +value);
+        break;
+      case 'menor que':
+        dataCover = dataCover
+          .filter((star) => +star[column] < +value);
+        break;
+      case 'igual a':
+        dataCover = dataCover
+          .filter((star) => +star[column] === +value);
+        break;
+      default:
+        console.error('xablau');
+      }
+    });
+    setDataFiltered(dataCover);
+  }, [data, filter.filterByNumericValues, setDataFiltered]);
 
   function onHandleClick(e) {
     e.preventDefault();
@@ -70,7 +71,6 @@ function FilterNumber() {
         }],
       });
     }
-    addFilter(filterCover);
   }
 
   return (

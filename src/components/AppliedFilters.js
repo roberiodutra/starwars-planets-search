@@ -5,37 +5,11 @@ function AppliedFilters() {
   const {
     filter,
     setFilter,
-    setDataFiltered,
-    dataFiltered,
     filteredColumns,
     setFilteredColumns,
   } = useContext(PlanetsContext);
 
-  function removeFilter(comparison, column, value) {
-    filter.filterByNumericValues.forEach((elem) => {
-      switch (comparison) {
-      case 'maior que':
-        setDataFiltered(dataFiltered.filter(
-          (item) => Number(item[column]) < Number(value),
-        ));
-        break;
-      case 'menor que':
-        setDataFiltered(dataFiltered.filter(
-          (item) => Number(item[column]) > Number(value),
-        ));
-        break;
-      case 'igual a':
-        setDataFiltered(dataFiltered.filter(
-          (item) => Number(item[column]) !== Number(value),
-        ));
-        break;
-      default:
-        console.error('xablau');
-      }
-    });
-  }
-
-  function onHandleClick(comparison, column, value) {
+  function onHandleClick(column) {
     const returnedColumn = [...filteredColumns, column];
     setFilteredColumns(returnedColumn);
 
@@ -45,7 +19,6 @@ function AppliedFilters() {
     setFilter({ ...filter,
       filterByNumericValues: [...returnedFilter],
     });
-    removeFilter(comparison, column, value);
   }
 
   return (
@@ -60,7 +33,7 @@ function AppliedFilters() {
             <button
               key={ `button-${i}` }
               type="button"
-              onClick={ () => onHandleClick(comparison, column, value) }
+              onClick={ () => onHandleClick(column) }
             >
               X
             </button>
