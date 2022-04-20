@@ -8,6 +8,10 @@ function Provider({ children }) {
   const [filter, setFilter] = useState({
     filterByName: { name: '' },
     filterByNumericValues: [],
+    order: {
+      column: 'population',
+      sort: 'ASC',
+    },
   });
 
   const [filteredColumns, setFilteredColumns] = useState([
