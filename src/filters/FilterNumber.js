@@ -30,6 +30,10 @@ function FilterNumber() {
     }
   }, [filteredColumns]);
 
+  function dynamicSort(prop) {
+    return (a, b) => a[prop].localeCompare(b[prop]);
+  }
+
   useEffect(() => {
     let dataCover = data;
 
@@ -52,7 +56,10 @@ function FilterNumber() {
         console.error('xablau');
       }
     });
-    setDataFiltered(dataCover);
+
+    if (dataCover) {
+      setDataFiltered(dataCover.sort(dynamicSort('name')));
+    }
   }, [data, filter.filterByNumericValues, setDataFiltered]);
 
   function onHandleClick(e) {
