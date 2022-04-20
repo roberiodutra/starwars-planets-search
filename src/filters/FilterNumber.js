@@ -58,7 +58,7 @@ function FilterNumber() {
     });
 
     if (dataCover) {
-      setDataFiltered(dataCover.sort(dynamicSort('name')));
+      setDataFiltered(dataCover);
     }
   }, [data, filter.filterByNumericValues, setDataFiltered]);
 

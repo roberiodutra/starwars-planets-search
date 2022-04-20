@@ -3,7 +3,7 @@ import PlanetsContext from '../contexts/PlanetsContext';
 import starWarsAPI from '../services/starWarsAPI';
 
 function Table() {
-  const { data, setData, filter, dataFiltered } = useContext(PlanetsContext);
+  const { tableHeader, setData, filter, dataFiltered } = useContext(PlanetsContext);
 
   useEffect(() => {
     async function dataAPI() {
@@ -12,26 +12,13 @@ function Table() {
     dataAPI();
   }, [setData]);
 
-  // função para converter uma string
-  // https://stackoverflow.com/questions/21792367/replace-underscores-with-spaces-and-capitalize-words
-
-  function strConverter(string) {
-    const split = string.split('_');
-    for (let i = 0; i < split.length; i += 1) {
-      split[i] = split[i].charAt(0).toUpperCase() + split[i].slice(1);
-    }
-    return split.join(' ');
-  }
-
   return (
     <table>
       <thead>
         <tr>
-          {data && Object.keys(data[0])
-            .filter((text) => text !== 'residents')
-            .map((header) => (
-              <th key={ header }>{strConverter(header)}</th>
-            ))}
+          {tableHeader && tableHeader.map((header, i) => (
+            <th key={ i }>{header}</th>
+          ))}
         </tr>
       </thead>
       <tbody>

@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import PlanetsContext from './PlanetsContext';
+import strConverter from '../services/strConverter';
 
 function Provider({ children }) {
   const [data, setData] = useState();
   const [dataFiltered, setDataFiltered] = useState();
+  const [tableHeader, setTableHeader] = useState();
+  const [radio, setRadio] = useState();
+  const [selectColumn, setSelectColumn] = useState('name');
   const [filter, setFilter] = useState({
     filterByName: { name: '' },
     filterByNumericValues: [],
     order: {
-      column: 'population',
-      sort: 'ASC',
+      column: selectColumn,
+      sort: radio,
     },
   });
 
@@ -23,7 +27,14 @@ function Provider({ children }) {
   ]);
 
   useEffect(() => {
+    const headers = [];
     if (data) {
+      Object.keys(data[0])
+        .filter((text) => text !== 'residents')
+        .forEach((header) => (
+          headers.push(strConverter(header))
+        ));
+      setTableHeader(headers);
       setDataFiltered(data);
     }
   }, [setDataFiltered, data]);
@@ -31,12 +42,17 @@ function Provider({ children }) {
   const context = {
     data,
     setData,
+    tableHeader,
     filter,
     setFilter,
     dataFiltered,
     setDataFiltered,
     filteredColumns,
     setFilteredColumns,
+    radio,
+    setRadio,
+    selectColumn,
+    setSelectColumn,
   };
 
   return (

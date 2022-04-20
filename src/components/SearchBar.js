@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import PlanetsContext from '../contexts/PlanetsContext';
 import FilterName from '../filters/FilterName';
 import FilterNumber from '../filters/FilterNumber';
+import FilterSort from '../filters/FilterSort';
 import AppliedFilters from './AppliedFilters';
 
 function SearchBar() {
@@ -26,6 +27,7 @@ function SearchBar() {
       <FilterName />
       <FilterNumber />
       <AppliedFilters />
+      <FilterSort />
       <button
         type="button"
         data-testid="button-remove-filters"
