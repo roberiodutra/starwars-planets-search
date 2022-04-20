@@ -6,7 +6,36 @@ function FilterSort() {
 
   return (
     <section>
-      <p>Sort</p>
+      <select
+        data-testid="column-sort"
+        onChange={}
+      >
+      </select>
+      <label htmlFor="column-sort-input">
+        <input
+          name="column-sort-input"
+          type="radio"
+          data-testid="column-sort-input-asc"
+          value="ASC"
+          onChange={}
+        />
+        Ascending
+        <input
+          name="column-sort-input"
+          type="radio"
+          data-testid="column-sort-input-desc"
+          value="DESC"
+          onChange={}
+        />
+        Descending
+      </label>
+      <button
+        type="button"
+        data-testid="column-sort-button"
+        onClick={}
+      >
+        Order
+      </button>
     </section>
   );
 }
