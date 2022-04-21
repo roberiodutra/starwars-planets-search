@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import PlanetsContext from '../contexts/PlanetsContext';
-import DynamicSort from '../components/DynamicSort';
+import DynamicSort from './DynamicSort';
 
 function FilterNumber() {
   const {
