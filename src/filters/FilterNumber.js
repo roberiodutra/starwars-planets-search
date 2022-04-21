@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import PlanetsContext from '../contexts/PlanetsContext';
+import DynamicSort from '../components/DynamicSort';
 
 function FilterNumber() {
   const {
@@ -9,6 +10,8 @@ function FilterNumber() {
     setFilter,
     filteredColumns,
     setFilteredColumns,
+    selectColumn,
+    radio,
   } = useContext(PlanetsContext);
 
   const comparisons = ['maior que', 'menor que', 'igual a'];
@@ -54,9 +57,9 @@ function FilterNumber() {
     });
 
     if (dataCover) {
-      setDataFiltered(dataCover);
+      DynamicSort(dataCover, selectColumn, setDataFiltered, radio);
     }
-  }, [data, filter.filterByNumericValues, setDataFiltered]);
+  }, [data, filter.filterByNumericValues, radio, selectColumn, setDataFiltered]);
 
   function onHandleClick(e) {
     e.preventDefault();
