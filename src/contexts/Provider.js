@@ -41,6 +41,15 @@ function Provider({ children }) {
     default:
       setDataFiltered(data.sort(dynamic('')));
     }
+
+    const arr = [...data];
+
+    for (let i = 0; i < data.length; i += 1) {
+      if (arr[0][selectColumn] === 'unknown') {
+        arr.push(arr.shift());
+      }
+    }
+    setDataFiltered(arr);
   }, [data, radio, selectColumn]);
 
   useEffect(() => {
