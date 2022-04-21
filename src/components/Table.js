@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import PlanetsContext from '../contexts/PlanetsContext';
 import starWarsAPI from '../services/starWarsAPI';
+import strConverter from '../services/strConverter';
 
 function Table() {
   const { tableHeader, setData, filter, dataFiltered } = useContext(PlanetsContext);
@@ -17,7 +18,7 @@ function Table() {
       <thead>
         <tr>
           {tableHeader && tableHeader.map((header, i) => (
-            <th key={ i }>{header}</th>
+            <th key={ i }>{strConverter(header)}</th>
           ))}
         </tr>
       </thead>

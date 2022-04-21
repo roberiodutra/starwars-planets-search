@@ -30,10 +30,6 @@ function FilterNumber() {
     }
   }, [filteredColumns]);
 
-  function dynamicSort(prop) {
-    return (a, b) => a[prop].localeCompare(b[prop]);
-  }
-
   useEffect(() => {
     let dataCover = data;
 

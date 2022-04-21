@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import PlanetsContext from './PlanetsContext';
-import strConverter from '../services/strConverter';
 
 function Provider({ children }) {
   const [data, setData] = useState();
@@ -26,18 +25,36 @@ function Provider({ children }) {
     'surface_water',
   ]);
 
+  const dynamicSort = useCallback(() => {
+    const collator = new Intl.Collator('en', {
+      numeric: true,
+    });
+
+    const dynamic = (neg) => (a, b) => neg + collator.compare(
+      a[selectColumn], b[selectColumn],
+    );
+
+    switch (true) {
+    case radio === 'DESC':
+      setDataFiltered(data.sort(dynamic('-')));
+      break;
+    default:
+      setDataFiltered(data.sort(dynamic('')));
+    }
+  }, [data, radio, selectColumn]);
+
   useEffect(() => {
     const headers = [];
     if (data) {
       Object.keys(data[0])
         .filter((text) => text !== 'residents')
         .forEach((header) => (
-          headers.push(strConverter(header))
+          headers.push(header)
         ));
       setTableHeader(headers);
-      setDataFiltered(data);
+      dynamicSort();
     }
-  }, [setDataFiltered, data]);
+  }, [setDataFiltered, data, selectColumn, radio, dynamicSort]);
 
   const context = {
     data,
