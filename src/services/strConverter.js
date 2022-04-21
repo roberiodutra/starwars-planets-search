@@ -1,4 +1,4 @@
-// função para converter uma string, não é um hook!
+// função para converter uma string.
 // https://stackoverflow.com/questions/21792367/replace-underscores-with-spaces-and-capitalize-words
 
 function strConverter(string) {
