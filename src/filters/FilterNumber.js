@@ -10,8 +10,6 @@ function FilterNumber() {
     setFilter,
     filteredColumns,
     setFilteredColumns,
-    selectColumn,
-    radio,
   } = useContext(PlanetsContext);
 
   const comparisons = ['maior que', 'menor que', 'igual a'];
@@ -36,30 +34,31 @@ function FilterNumber() {
   useEffect(() => {
     let dataCover = data;
 
-    filter.filterByNumericValues.forEach((filt) => {
-      const { column, comparison, value } = filt;
-      switch (comparison) {
-      case 'maior que':
-        dataCover = dataCover
-          .filter((star) => +star[column] > +value);
-        break;
-      case 'menor que':
-        dataCover = dataCover
-          .filter((star) => +star[column] < +value);
-        break;
-      case 'igual a':
-        dataCover = dataCover
-          .filter((star) => +star[column] === +value);
-        break;
-      default:
-        console.error('xablau');
-      }
-    });
+    filter.filterByNumericValues.forEach(
+      ({ column, comparison, value }) => {
+        switch (comparison) {
+        case 'maior que':
+          dataCover = dataCover
+            .filter((star) => +star[column] > +value);
+          break;
+        case 'menor que':
+          dataCover = dataCover
+            .filter((star) => +star[column] < +value);
+          break;
+        case 'igual a':
+          dataCover = dataCover
+            .filter((star) => +star[column] === +value);
+          break;
+        default:
+          console.error('xablau');
+        }
+      },
+    );
 
     if (dataCover) {
-      DynamicSort(dataCover, selectColumn, setDataFiltered, radio);
+      DynamicSort(dataCover, filter, setDataFiltered);
     }
-  }, [data, filter.filterByNumericValues, radio, selectColumn, setDataFiltered]);
+  }, [data, filter, setDataFiltered]);
 
   function onHandleClick(e) {
     e.preventDefault();

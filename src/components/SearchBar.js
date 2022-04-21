@@ -12,6 +12,10 @@ function SearchBar() {
     setFilter({
       filterByName: { name: '' },
       filterByNumericValues: [],
+      order: {
+        column: 'name',
+        sort: 'ASC',
+      },
     });
     setFilteredColumns([
       'population',

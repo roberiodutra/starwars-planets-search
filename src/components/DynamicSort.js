@@ -1,14 +1,15 @@
-function DynamicSort(data, selectColumn, setDataFiltered, radio) {
+function DynamicSort(data, filter, setDataFiltered) {
+  const { column, sort } = filter.order;
   const collator = new Intl.Collator('en', {
     numeric: true,
   });
 
   const dynamic = (neg) => (a, b) => neg + collator.compare(
-    a[selectColumn], b[selectColumn],
+    a[column], b[column],
   );
 
   switch (true) {
-  case radio === 'DESC':
+  case sort === 'DESC':
     setDataFiltered(data.sort(dynamic('-')));
     break;
   default:
@@ -18,7 +19,7 @@ function DynamicSort(data, selectColumn, setDataFiltered, radio) {
   const arr = [...data];
 
   for (let i = 0; i < data.length; i += 1) {
-    if (arr[0][selectColumn] === 'unknown') {
+    if (arr[0][column] === 'unknown') {
       arr.push(arr.shift());
     }
   }

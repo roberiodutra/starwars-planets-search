@@ -6,14 +6,12 @@ function Provider({ children }) {
   const [data, setData] = useState();
   const [dataFiltered, setDataFiltered] = useState();
   const [tableHeader, setTableHeader] = useState();
-  const [radio, setRadio] = useState();
-  const [selectColumn, setSelectColumn] = useState('name');
   const [filter, setFilter] = useState({
     filterByName: { name: '' },
     filterByNumericValues: [],
     order: {
-      column: selectColumn,
-      sort: radio,
+      column: 'name',
+      sort: 'ASC',
     },
   });
 
@@ -35,7 +33,7 @@ function Provider({ children }) {
         ));
       setTableHeader(headers);
     }
-  }, [setDataFiltered, data, selectColumn, radio]);
+  }, [setDataFiltered, data]);
 
   const context = {
     data,
@@ -47,10 +45,6 @@ function Provider({ children }) {
     setDataFiltered,
     filteredColumns,
     setFilteredColumns,
-    radio,
-    setRadio,
-    selectColumn,
-    setSelectColumn,
   };
 
   return (
