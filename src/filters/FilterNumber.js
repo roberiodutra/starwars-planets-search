@@ -45,12 +45,9 @@ function FilterNumber() {
           dataCover = dataCover
             .filter((star) => +star[column] < +value);
           break;
-        case 'igual a':
+        default:
           dataCover = dataCover
             .filter((star) => +star[column] === +value);
-          break;
-        default:
-          console.error('xablau');
         }
       },
     );

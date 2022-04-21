@@ -8,8 +8,8 @@ function DynamicSort(data, filter, setDataFiltered) {
     a[column], b[column],
   );
 
-  switch (true) {
-  case sort === 'DESC':
+  switch (sort) {
+  case 'DESC':
     setDataFiltered(data.sort(dynamic('-')));
     break;
   default:
