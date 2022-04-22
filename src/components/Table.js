@@ -23,8 +23,8 @@ function Table() {
         </tr>
       </thead>
       <tbody>
-        {dataFiltered !== undefined && dataFiltered
-          .filter(({ name }) => name.includes(filter.filterByName.name))
+        {dataFiltered && dataFiltered.filter(({ name }) => name
+          .includes(filter.filterByName.name))
           .map((planet) => (
             <tr key={ planet.name }>
               <td data-testid="planet-name">{planet.name}</td>
