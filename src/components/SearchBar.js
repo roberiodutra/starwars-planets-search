@@ -6,7 +6,12 @@ import FilterSort from '../filters/FilterSort';
 import AppliedFilters from './AppliedFilters';
 
 function SearchBar() {
-  const { setFilter, setFilteredColumns } = useContext(PlanetsContext);
+  const {
+    setFilter,
+    setFilteredColumns,
+    moreInfo,
+    setMoreInfo,
+  } = useContext(PlanetsContext);
 
   function clearFilters() {
     setFilter({
@@ -26,19 +31,38 @@ function SearchBar() {
     ]);
   }
 
+  function onHandleClick(e) {
+    e.preventDefault();
+    if (!moreInfo) {
+      setMoreInfo(true);
+    } else {
+      setMoreInfo(false);
+    }
+  }
+
   return (
-    <section>
+    <section className="searchBar">
       <FilterName />
       <FilterNumber />
-      <AppliedFilters />
       <FilterSort />
-      <button
-        type="button"
-        data-testid="button-remove-filters"
-        onClick={ clearFilters }
-      >
-        Remove Filters
-      </button>
+      <AppliedFilters />
+      <div className="buttons">
+        <button
+          className="btn btn-outline-warning"
+          type="button"
+          data-testid="button-remove-filters"
+          onClick={ clearFilters }
+        >
+          Remove Filters
+        </button>
+        <button
+          className="btn btn-outline-warning"
+          type="button"
+          onClick={ onHandleClick }
+        >
+          More Info
+        </button>
+      </div>
     </section>
   );
 }

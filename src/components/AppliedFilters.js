@@ -22,20 +22,22 @@ function AppliedFilters() {
   }
 
   return (
-    <section>
+    <section className="appliedFilters">
       {filter.filterByNumericValues
         .map(({ comparison, column, value }, i) => (
           <div
             key={ i }
             data-testid="filter"
           >
-            {`${column} ${comparison} ${value} `}
+            <p className="btn btn-outline-secondary">
+              {`${column} ${comparison} ${value} `}
+            </p>
             <button
               key={ `button-${i}` }
               type="button"
               onClick={ () => onHandleClick(column) }
             >
-              X
+              <img src="trash.png" alt="trash" />
             </button>
           </div>
         ))}

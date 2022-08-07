@@ -16,7 +16,7 @@ function FilterNumber() {
   const [filterCover, setFilterCover] = useState({
     column: 'population',
     comparison: 'maior que',
-    value: 0,
+    value: '',
   });
 
   function onHandleChange({ target }) {
@@ -76,8 +76,9 @@ function FilterNumber() {
   }
 
   return (
-    <section>
+    <section className="filter-number">
       <select
+        className="btn btn-outline-dark"
         name="column"
         data-testid="column-filter"
         onChange={ onHandleChange }
@@ -88,6 +89,7 @@ function FilterNumber() {
       </select>
 
       <select
+        className="btn btn-outline-dark"
         name="comparison"
         data-testid="comparison-filter"
         onChange={ onHandleChange }
@@ -98,14 +100,17 @@ function FilterNumber() {
       </select>
 
       <input
+        className="mr-sm-2"
         name="value"
         type="number"
+        placeholder="value"
         value={ filterCover.value }
         data-testid="value-filter"
         onChange={ onHandleChange }
       />
 
       <button
+        className="btn btn-outline-dark"
         type="button"
         data-testid="button-filter"
         onClick={ onHandleClick }

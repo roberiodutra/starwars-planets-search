@@ -13,8 +13,9 @@ function FilterSort() {
   }
 
   return (
-    <section>
+    <section className="filter-sort">
       <select
+        className="btn btn-outline-dark"
         name="column"
         data-testid="column-sort"
         onChange={ updateOrder }
@@ -45,6 +46,7 @@ function FilterSort() {
         Descending
       </label>
       <button
+        className="btn btn-outline-dark"
         name="sort"
         type="button"
         value={ radioSelect }

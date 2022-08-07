@@ -1,41 +1,96 @@
-.App {
+/* stylelint-disable linebreaks */
+
+/* stylelint-disable declaration-no-important */
+
+/* stylelint-disable selector-list-comma-space-after */
+header {
+  background-color: #212529;
+  color: black;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+header h1 {
+  font-weight: 900;
+  text-shadow: -1px 0 #fafcb3 , 0 1px #fafcb3 , 1px 0 #fafcb3 , 0 -1px #fafcb3;
 }
 
-@media ( prefers-reduced-motion : no-preference ) {
-
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  align-items: center;
-  background-color: #282c34;
-  color: white;
+.searchBar {
   display: flex;
-  flex-direction: column;
-  font-size: calc(10px + 2vmin);
-  justify-content: center;
-  min-height: 100vh;
+  flex-flow: row;
+  flex-wrap: wrap;
 }
 
-.App-link {
-  color: #61dafb;
+.search {
+  flex: 1;
+  flex-basis: 100%;
+  margin: 10px auto;
+  text-align: center;
 }
 
-@keyframes App-logo-spin {
+.search input {
+  text-align: center;
+  width: 50%;
+}
 
-  from {
-    transform: rotate(0deg);
-  }
+input:focus::placeholder {
+  color: transparent;
+}
 
-  to {
-    transform: rotate(360deg);
-  }
+
+.filter-number, .filter-sort {
+  background-color: #dee2e6;
+  height: 56px;
+  padding: 10px;
+  text-align: center;
+}
+
+.filter-number {
+  flex: 2;
+  flex-basis: 49%;
+}
+
+.filter-sort {
+  flex: 3;
+  flex-basis: 49%;
+}
+
+.filter-number select,
+.filter-number input,
+.filter-sort select,
+.filter-sort input,
+.filter-sort button {
+  margin: 0 10px;
+  text-align: center;
+}
+
+.appliedFilters {
+  flex: 4;
+  flex-basis: 100%;
+  padding: 10px;
+  text-align: center;
+}
+
+.appliedFilters p {
+  margin-top: 20px;
+}
+
+.buttons {
+  flex: 5;
+  flex-basis: 100%;
+  padding: 10px;
+  text-align: center;
+}
+
+.buttons button {
+  margin: 0 10px;
+}
+
+.appliedFilters button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
 }

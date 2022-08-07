@@ -11,13 +11,16 @@ function FilterName() {
   }
 
   return (
-    <input
-      type="text"
-      data-testid="name-filter"
-      value={ filter.filterByName.name }
-      placeholder="Planet Search"
-      onChange={ onHandleChange }
-    />
+    <div className="search">
+      <input
+        className="mr-sm-2"
+        type="search"
+        placeholder="Search"
+        data-testid="name-filter"
+        value={ filter.filterByName.name }
+        onChange={ onHandleChange }
+      />
+    </div>
   );
 }
 

@@ -6,6 +6,7 @@ function Provider({ children }) {
   const [data, setData] = useState();
   const [dataFiltered, setDataFiltered] = useState();
   const [tableHeader, setTableHeader] = useState();
+  const [moreInfo, setMoreInfo] = useState(false);
   const [filter, setFilter] = useState({
     filterByName: { name: '' },
     filterByNumericValues: [],
@@ -45,6 +46,8 @@ function Provider({ children }) {
     setDataFiltered,
     filteredColumns,
     setFilteredColumns,
+    moreInfo,
+    setMoreInfo,
   };
 
   return (
